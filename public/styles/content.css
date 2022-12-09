@@ -1,0 +1,162 @@
+:root {
+  --entry-buttons-height: 30px;
+  --color-eksi: #81c14b;
+}
+
+.eg-gallery-modal {
+  background-color: #000000dd;
+  color: white;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 99999;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.eg-gallery-layout {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+}
+
+.eg-gallery-entry-detail {
+  position: absolute;
+  right: 0px;
+  top: var(--entry-buttons-height);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.eg-gallery-entry-detail:hover {
+  background-color: #00000088;
+}
+
+.eg-gallery-entry-author {
+  color: var(--color-eksi);
+  font: bold;
+  text-decoration: none;
+}
+
+.eg-gallery-entry-author:hover {
+  text-decoration: none;
+}
+
+.eg-gallery-entry-date {
+  font-size: 12px;
+  text-align: right;
+}
+
+.eg-gallery-entry-container {
+  width: 100%;
+  height: 100px;
+  overflow-y: auto;
+}
+
+.eg-gallery-entry-container::-webkit-scrollbar {
+  width: 6px;
+  background-color: #000000;
+}
+
+.eg-gallery-entry-container::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+
+.eg-gallery-entry-buttons {
+  position: absolute;
+  width: 100%;
+  height: var(--entry-buttons-height);
+  background-color: black;
+  opacity: 0.1;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.eg-gallery-entry-buttons:hover {
+  opacity: 0.5;
+}
+
+.eg-gallery-entry-buttons.top {
+  top: 0px;
+}
+
+.eg-gallery-entry-buttons.bottom {
+  bottom: 0px;
+}
+
+.eg-gallery-author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  margin-left: 4px;
+}
+
+.eg-gallery-image-container {
+  width: 100%;
+  height: calc(100% - 112px);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.eg-gallery-image-buttons {
+  height: 100%;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.1;
+}
+
+.eg-gallery-image-buttons:hover {
+  opacity: 0.6;
+}
+
+.eg-gallery-active-image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.eg-gallery-active-image-loading {
+  color: #a0a0a0;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+.eg-gallery-image-steps {
+  width: 100%;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.step {
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  background-color: white;
+  margin: 0px 2px;
+}
+
+.step.active {
+  background-color: var(--color-eksi);
+}
