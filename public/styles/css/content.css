@@ -60,6 +60,10 @@
   overflow-y: auto;
 }
 
+.eg-gallery-entry-container > a {
+  color: var(--color-eksi);
+}
+
 .eg-gallery-entry-container::-webkit-scrollbar {
   width: 6px;
   background-color: #000000;
@@ -109,6 +113,15 @@
   justify-content: space-between;
 }
 
+.eg-gallery-no-image {
+  width: 100%;
+  height: calc(100% - 112px);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .eg-gallery-image-buttons {
   height: 100%;
   width: 30px;
@@ -155,6 +168,7 @@
   border-radius: 4px;
   background-color: white;
   margin: 0px 2px;
+  cursor: pointer;
 }
 
 .step.active {

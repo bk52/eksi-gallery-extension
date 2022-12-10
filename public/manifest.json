@@ -4,16 +4,18 @@
   "description": "This extension provides view images in eksisozluk as a gallery.",
   "version": "1.0",
   "icons": {
-    "16": "images/eksi16.png",
-    "48": "images/eksi48.png",
-    "128": "images/eksi128.png"
+    "16": "images/eksi16off.png",
+    "48": "images/eksi48off.png",
+    "128": "images/eksi128off.png"
   },
   "action": {
     "default_icon": {
-      "16": "images/eksi16.png",
-      "48": "images/eksi48.png",
-      "128": "images/eksi128.png"
-    }
+      "16": "images/eksi16off.png",
+      "48": "images/eksi48off.png",
+      "128": "images/eksi128off.png"
+    },
+    "default_title": "Eksi Gallery",
+    "default_popup": "popup.html"
   },
   "background": {
     "service_worker": "script/background.js",
@@ -22,7 +24,7 @@
   "content_scripts": [
     {
       "js": ["script/content.js"],
-      "css": ["styles/content.css", "styles/font-awesome.css"],
+      "css": ["styles/css/content.css", "styles/css/font-awesome.css"],
       "matches": ["https://eksisozluk.com/*"]
     }
   ],
@@ -41,18 +43,18 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["styles/content.css"],
+      "resources": ["styles/css/content.css"],
       "matches": ["https://eksisozluk.com/*"]
     },
     {
-      "resources": ["styles/font-awesome.css"],
+      "resources": ["styles/css/font-awesome.css"],
       "matches": ["https://eksisozluk.com/*"]
     },
     {
       "resources": [
-        "styles/fontawesome-webfont.woff",
-        "styles/fontawesome-webfont.woff2",
-        "styles/fontawesome-webfont.ttf"
+        "styles/fonts/fontawesome-webfont.woff",
+        "styles/fonts/fontawesome-webfont.woff2",
+        "styles/fonts/fontawesome-webfont.ttf"
       ],
       "matches": ["https://eksisozluk.com/*"]
     }

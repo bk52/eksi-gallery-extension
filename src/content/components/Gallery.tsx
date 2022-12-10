@@ -41,9 +41,11 @@ const Gallery: React.FC<IGallery> = ({
     if (entry && entry.links) {
       const links: string[] = []
       Object.entries(entry.links).forEach(([k, v]) => {
-        links.push(v.target ?? "")
+        v.target && v.target != "" ? links.push(v.target) : links.push(k)
       })
       setEntryImages(links)
+    } else {
+      setEntryImages(undefined)
     }
   }
 
@@ -81,12 +83,19 @@ const Gallery: React.FC<IGallery> = ({
         {/* Entry Info */}
         {entry && <EntryInfo entry={entry} />}
         {/* Image */}
-        {entryImages && (
+        {entryImages ? (
           <EntryImage
             imageUrl={entryImages[activeImage]}
             onNextClick={() => changeImage(1)}
             onPrevClick={() => changeImage(-1)}
           />
+        ) : (
+          <div className="eg-gallery-no-image">
+            <div className="eg-gallery-active-image-loading">
+              <i className="fa fa-file-image-o fa-2x"></i>
+              <div>Bu entry görsel içermiyor</div>
+            </div>
+          </div>
         )}
         {/* Image Steps */}
         <div className="eg-gallery-image-steps">
@@ -95,6 +104,7 @@ const Gallery: React.FC<IGallery> = ({
               <div
                 key={index}
                 className={`step ${index === activeImage ? "active" : ""}`}
+                onClick={() => setActiveImage(index)}
               ></div>
             ))}
         </div>

@@ -10,6 +10,22 @@ let entries: IEntry[] | undefined
 let mode: ViewMode = "GALLERY"
 let sendedLink = 0
 let receivedLink = 0
+let prevPageButton: HTMLAnchorElement | undefined,
+  nextPageButton: HTMLAnchorElement | undefined
+
+try {
+  prevPageButton = document.querySelectorAll(
+    ".pager > .prev"
+  )[0] as HTMLAnchorElement
+  nextPageButton = document.querySelectorAll(
+    ".pager > .next"
+  )[0] as HTMLAnchorElement
+} catch (e) {
+  console.error(e)
+}
+
+const goNextPage = () => nextPageButton && nextPageButton.click()
+const goPrevPage = () => prevPageButton && prevPageButton.click()
 
 chrome.runtime.onMessage.addListener(function (
   request: IMessage,
@@ -84,7 +100,12 @@ chrome.runtime.onMessage.addListener(function (
             MainPageDiv.style.height = "100vh"
             MainPageDiv.style.overflow = "hidden"
           }
-          EksiGallery({ entryList: entries, visible: true })
+          EksiGallery({
+            entryList: entries,
+            visible: true,
+            goNextPage,
+            goPrevPage,
+          })
         }
       }
     }
