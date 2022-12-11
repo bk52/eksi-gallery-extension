@@ -6,7 +6,6 @@ import parser from "./parser"
 import EksiGallery from "./components/Gallery"
 
 let entries: IEntry[] | undefined
-// eslint-disable-next-line prefer-const
 let mode: ViewMode = "GALLERY"
 let sendedLink = 0
 let receivedLink = 0
@@ -33,6 +32,7 @@ chrome.runtime.onMessage.addListener(function (
   sendResponse
 ) {
   if (request.message === "ON") {
+    mode = request.data
     sendedLink = 0
 
     Alert.show("🚀 Resimler yükleniyor...")
@@ -41,7 +41,6 @@ chrome.runtime.onMessage.addListener(function (
 
     entries.forEach((entry) => {
       const { links, entryId } = entry
-
       if (links) {
         Object.entries(links).forEach((link) => {
           const message: IMessage = {
@@ -57,6 +56,8 @@ chrome.runtime.onMessage.addListener(function (
       }
     })
   } else if (request.message === "OFF") {
+    window.location.reload()
+  } else if (request.message === "CHANGE_MODE") {
     window.location.reload()
   }
 })

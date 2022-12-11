@@ -1,4 +1,9 @@
-type MessageType = "ON" | "OFF" | "GET_CONTENT" | "GET_CONTENT_RESULT"
+type MessageType =
+  | "ON"
+  | "OFF"
+  | "GET_CONTENT"
+  | "GET_CONTENT_RESULT"
+  | "CHANGE_MODE"
 export type ViewMode = "INLINE" | "GALLERY"
 
 export enum UploadSites {

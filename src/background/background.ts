@@ -1,28 +1,21 @@
 import { IMessage, ON_ICON, OFF_ICON, TARGET_SITE } from "../types"
-import { getSetting, setSetting } from "./settings"
+import { setSetting } from "../settings"
+import { getExtensionMode, getExtensionStatus } from "../utils"
 import getHtml from "./getHtml"
 
+// Set extension badge for specific tab
+// Send extension status and mode to content script
 const initExtension = async (tabId: number) => {
-  const prevState = await getSetting(tabId.toString())
-  if (prevState[tabId] === "ON") {
+  const state = await getExtensionStatus(tabId)
+  const mode = await getExtensionMode()
+  if (state === "ON") {
     const message: IMessage = {
-      message: prevState[tabId],
+      message: state,
+      data: mode,
     }
     chrome.action.setIcon({ tabId, path: ON_ICON })
     chrome.tabs.sendMessage(tabId, message)
   }
-}
-
-const changeExtensionStatus = async (tabId: number) => {
-  // const prevState = await getSetting(tabId.toString())
-  // const nextState = prevState[tabId] === "ON" ? "OFF" : "ON"
-  // const path = nextState === "ON" ? ON_ICON : OFF_ICON
-  // await setSetting(tabId.toString(), nextState)
-  // chrome.action.setIcon({ tabId, path })
-  // const message: IMessage = {
-  //   message: nextState,
-  // }
-  // chrome.tabs.sendMessage(tabId, message)
 }
 
 // Set all extension's badge to OFF in the target websites when extension installed
@@ -36,7 +29,7 @@ chrome.runtime.onInstalled.addListener(function () {
   })
 })
 
-// When page loaded
+// When page loaded init extension
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (tab.url!.startsWith(TARGET_SITE) && changeInfo.status === "complete") {
     initExtension(tab.id!)

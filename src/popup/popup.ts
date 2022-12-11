@@ -1,4 +1,5 @@
-import { getSetting, setSetting } from "../background/settings"
+import { setSetting } from "../settings"
+import { getExtensionStatus, getExtensionMode } from "../utils"
 import { ViewMode, ON_ICON, OFF_ICON, TARGET_SITE, IMessage } from "../types"
 let activeTabId = -1
 
@@ -14,10 +15,10 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
 const init = async (tabId?: number) => {
   if (tabId) {
     activeTabId = tabId
-    const prevState = await getSetting(tabId.toString())
-    const mode = await getSetting("mode")
-    setStatus(prevState[tabId])
-    mode["mode"] === "INLINE" ? setMode("INLINE") : setMode("GALLERY")
+    const state = await getExtensionStatus(tabId)
+    const mode = await getExtensionMode()
+    setStatus(state)
+    mode === "INLINE" ? setMode("INLINE") : setMode("GALLERY")
   }
 }
 
@@ -51,8 +52,9 @@ const hideExtension = () => {
 
 const onActiveClick = async () => {
   if (activeTabId > 0) {
-    const prevState = await getSetting(activeTabId.toString())
-    const nextState = prevState[activeTabId] === "ON" ? "OFF" : "ON"
+    const prevState = await getExtensionStatus(activeTabId)
+    const nextState = prevState === "ON" ? "OFF" : "ON"
+    const mode = await getExtensionMode()
     await setSetting(activeTabId.toString(), nextState)
     //Change extension icon
     const path = nextState === "ON" ? ON_ICON : OFF_ICON
@@ -61,15 +63,34 @@ const onActiveClick = async () => {
     // Send to content script
     const message: IMessage = {
       message: nextState,
+      data: mode,
     }
     chrome.tabs.sendMessage(activeTabId, message)
   }
 }
 
-const onModeClick = () => {}
+const onModeClick = async () => {
+  if (activeTabId > 0) {
+    const status = await getExtensionStatus(activeTabId)
+    const prevMode = await getExtensionMode()
+    const nextMode: ViewMode = prevMode === "INLINE" ? "GALLERY" : "INLINE"
+    await setSetting("mode", nextMode)
+    setMode(nextMode)
+    if (status === "ON") {
+      const message: IMessage = {
+        message: "CHANGE_MODE",
+      }
+      chrome.tabs.sendMessage(activeTabId, message)
+    }
+  }
+}
 
 document
   .getElementById("activeButton")!
   .addEventListener("click", onActiveClick)
+
+document.getElementById("galleryMode")!.addEventListener("click", onModeClick)
+
+document.getElementById("inlineMode")!.addEventListener("click", onModeClick)
 
 export {}

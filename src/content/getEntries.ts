@@ -1,5 +1,4 @@
 import { IEntry, ILink } from "../types"
-import { dateTimeConverter } from "./utils"
 
 const getEntries = (): IEntry[] => {
   const entries: IEntry[] = []
