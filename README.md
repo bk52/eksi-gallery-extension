@@ -29,3 +29,16 @@ npm run build
  After successful build, **dist** folder will be created from the project directory.
  
  - Install the **dist** folder by following [these steps](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) in the Chrome browser.
+
+## How It Works?
+
+![Schema](https://user-images.githubusercontent.com/24523985/206916200-67e395c7-486e-4c70-bb63-f4daba9df099.jpg)
+
+1. **popup.js** catches when the button in the extension is clicked.
+2. When the extension is activated, a message is sent to **content.js**.
+3. *Since it has access to the DOM*, **content.js** finds and parses the posts on the page.
+4. *Due to [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)*, **content.js** cannot send HTTP requests to links obtained from posts. Instead it sends the links to **background.js**.
+5. **background.js** sends HTTP requests to links. 
+6. **background.js** forwards the incoming response to **content.js**.
+7. **content.js** parses the incoming responses and finds the image link. Links are added to the posts on the page as previews or displayed as a gallery.
+
