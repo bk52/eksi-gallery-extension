@@ -1,14 +1,21 @@
 import { setSetting } from "../settings"
 import { getExtensionStatus, getExtensionMode } from "../utils"
-import { ViewMode, ON_ICON, OFF_ICON, TARGET_SITE, IMessage } from "../types"
+import { ViewMode, ON_ICON, OFF_ICON, TARGET_SITES, IMessage } from "../types"
 let activeTabId = -1
 
 chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
   const { id, url } = tabs[0]
-  if (url && url.indexOf(TARGET_SITE) > -1) {
-    url.indexOf("https://eksisozluk.com/biri") > -1 ? hideExtension() : init(id)
-  } else {
-    hideExtension()
+
+  if (!url) hideExtension()
+  else {
+    let matched = false
+    let biri = false
+    TARGET_SITES.forEach((site) => {
+      if (url.indexOf(site) > -1) matched = true
+      if (url.indexOf(`${site}biri`) > -1) biri = true
+    })
+    if (matched) biri ? hideExtension() : init(id)
+    else hideExtension()
   }
 })
 
@@ -56,7 +63,7 @@ const onActiveClick = async () => {
     const nextState = prevState === "ON" ? "OFF" : "ON"
     const mode = await getExtensionMode()
     await setSetting(activeTabId.toString(), nextState)
-    //Change extension icon
+    // Change extension icon
     const path = nextState === "ON" ? ON_ICON : OFF_ICON
     chrome.action.setIcon({ tabId: activeTabId, path })
     setStatus(nextState)

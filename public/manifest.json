@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Eksi Gallery",
   "description": "This extension provides view images in eksisozluk as a gallery.",
-  "version": "1.0",
+  "version": "1.1",
   "icons": {
     "16": "images/eksi16off.png",
     "48": "images/eksi48off.png",
@@ -25,7 +25,7 @@
     {
       "js": ["script/content.js"],
       "css": ["styles/css/content.css", "styles/css/font-awesome.css"],
-      "matches": ["https://eksisozluk.com/*"]
+      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
     }
   ],
   "content_security_policy": {
@@ -34,6 +34,8 @@
   "host_permissions": [
     "https://eksisozluk.com/",
     "https://eksisozluk.com/*",
+    "https://eksisozluk2023.com/",
+    "https://eksisozluk2023.com/*",
     "https://soz.lk/",
     "https://soz.lk/*",
     "https://ibb.co/",
@@ -44,11 +46,11 @@
   "web_accessible_resources": [
     {
       "resources": ["styles/css/content.css"],
-      "matches": ["https://eksisozluk.com/*"]
+      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
     },
     {
       "resources": ["styles/css/font-awesome.css"],
-      "matches": ["https://eksisozluk.com/*"]
+      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
     },
     {
       "resources": [
@@ -56,7 +58,7 @@
         "styles/fonts/fontawesome-webfont.woff2",
         "styles/fonts/fontawesome-webfont.ttf"
       ],
-      "matches": ["https://eksisozluk.com/*"]
+      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
     }
   ],
   "permissions": ["scripting", "tabs", "activeTab", "storage"],

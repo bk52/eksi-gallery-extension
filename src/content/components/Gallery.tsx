@@ -124,7 +124,11 @@ const EntryInfo: React.FC<{ entry: IEntry }> = ({ entry }) => {
       <img className="eg-gallery-author-avatar" src={entry?.avatarUrl} />
       <div>
         <a
-          href={`https://eksisozluk.com/biri/${formatNick(entry?.author)}`}
+          href={
+            window.location.href.indexOf("2023") > -1
+              ? `https://eksisozluk2023.com/biri/${formatNick(entry?.author)}`
+              : `https://eksisozluk.com/biri/${formatNick(entry?.author)}`
+          }
           target={"_blank"}
           rel="noopener noreferrer"
           className="eg-gallery-entry-author"
