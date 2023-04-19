@@ -61,7 +61,7 @@
       "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
     }
   ],
-  "permissions": ["scripting", "tabs", "activeTab", "storage"],
+  "permissions": ["tabs", "activeTab", "storage"],
   "commands": {
     "_execute_action": {
       "suggested_key": {
