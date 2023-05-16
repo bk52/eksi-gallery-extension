@@ -49,7 +49,3 @@ export interface IEntry {
 
 export const ON_ICON = "images/eksi48.png"
 export const OFF_ICON = "images/eksi48off.png"
-export const TARGET_SITES = [
-  "https://eksisozluk.com/",
-  "https://eksisozluk2023.com/",
-]

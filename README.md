@@ -1,8 +1,6 @@
-
-
 # <img width="36" src="https://user-images.githubusercontent.com/24523985/232335625-56cf4139-4df0-44f8-bf57-0ad330ffa1e6.png"/> Eksi Gallery
 
-This chrome extension allows you to view the image links in the posts on the **eksisozluk.com** and **eksisozluk2023.com** websites.
+This chrome extension allows you to view the image links in the posts on the **eksisozluk.com** websites.
 
 ![eksi-gallery](https://user-images.githubusercontent.com/24523985/206904837-e23a8d0f-be74-419f-b14e-8274ae7f5b48.gif)
 
@@ -29,7 +27,7 @@ You can view pictures inside the page or in gallery mode.
 
 ![Schema](https://user-images.githubusercontent.com/24523985/232336063-f61d3cad-8c5e-4d74-bfee-b6fab87be829.jpg)
 
-[1] The user can activate the extension and change the mode with the popup opened by clicking on the icon on the sites **eksisozluk.com** and **eksisozluk2023.com**
+[1] The user can activate the extension and change the mode with the popup opened by clicking on the icon on the sites **eksisozluk.com**
 
 [2-3-4] When the extension is active, **content.js** parses the links in the entries on the page and sends them to **background.js**.
 
@@ -37,20 +35,26 @@ You can view pictures inside the page or in gallery mode.
 
 [7] The response from **background.js** is parsed in **content.js** and the images are displayed to the user according to the selected mode.
 
-
 ## Installation
+
 - Clone repository
+
 ```
  git clone https://github.com/bk52/eksi-gallery-extension.git
- ```
- - Install packages
- ```
+```
+
+- Install packages
+
+```
 npm install
- ```
- - Build project
- ```
+```
+
+- Build project
+
+```
 npm run build
- ```
- After successful build, **dist** folder will be created from the project directory.
- 
- - Install the **dist** folder by following [these steps](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) in the Chrome browser.
+```
+
+After successful build, **dist** folder will be created from the project directory.
+
+- Install the **dist** folder by following [these steps](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) in the Chrome browser.

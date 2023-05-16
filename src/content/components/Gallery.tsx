@@ -119,16 +119,16 @@ const Gallery: React.FC<IGallery> = ({
 }
 
 const EntryInfo: React.FC<{ entry: IEntry }> = ({ entry }) => {
+  const getProfileLink = (author: string): string => {
+    return `https://${window.location.hostname}/biri/${formatNick(author)}`
+  }
+
   return (
     <div className="eg-gallery-entry-detail">
       <img className="eg-gallery-author-avatar" src={entry?.avatarUrl} />
       <div>
         <a
-          href={
-            window.location.href.indexOf("2023") > -1
-              ? `https://eksisozluk2023.com/biri/${formatNick(entry?.author)}`
-              : `https://eksisozluk.com/biri/${formatNick(entry?.author)}`
-          }
+          href={getProfileLink(entry?.author)}
           target={"_blank"}
           rel="noopener noreferrer"
           className="eg-gallery-entry-author"

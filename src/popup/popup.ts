@@ -1,6 +1,6 @@
 import { setSetting } from "../settings"
 import { getExtensionStatus, getExtensionMode } from "../utils"
-import { ViewMode, ON_ICON, OFF_ICON, TARGET_SITES, IMessage } from "../types"
+import { ViewMode, ON_ICON, OFF_ICON, IMessage } from "../types"
 let activeTabId = -1
 
 chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -10,10 +10,10 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
   else {
     let matched = false
     let biri = false
-    TARGET_SITES.forEach((site) => {
-      if (url.indexOf(site) > -1) matched = true
-      if (url.indexOf(`${site}biri`) > -1) biri = true
-    })
+
+    if (url.indexOf("eksisozluk") > -1) matched = true
+    if (matched && url.indexOf(`/biri`) > -1) biri = true
+
     if (matched) biri ? hideExtension() : init(id)
     else hideExtension()
   }

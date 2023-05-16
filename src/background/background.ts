@@ -1,4 +1,4 @@
-import { IMessage, ON_ICON, OFF_ICON, TARGET_SITES } from "../types"
+import { IMessage, ON_ICON, OFF_ICON } from "../types"
 import { setSetting } from "../settings"
 import { getExtensionMode, getExtensionStatus } from "../utils"
 import getHtml from "./getHtml"
@@ -20,21 +20,22 @@ const initExtension = async (tabId: number) => {
 
 // Set all extension's badge to OFF in the target websites when extension installed
 chrome.runtime.onInstalled.addListener(function () {
-  chrome.tabs.query({ url: TARGET_SITES }, function (tabs) {
-    tabs.forEach(async (tab) => {
-      const tabId = tab.id!
-      await setSetting(tabId.toString(), "OFF")
-      chrome.action.setIcon({ tabId, path: OFF_ICON })
-    })
+  chrome.tabs.query({ url: "https://eksisozluk*.com" }, function (tabs) {
+    tabs &&
+      tabs.forEach(async (tab) => {
+        const tabId = tab.id!
+        await setSetting(tabId.toString(), "OFF")
+        chrome.action.setIcon({ tabId, path: OFF_ICON })
+      })
   })
 })
 
 // When page loaded init extension
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   let matched = false
-  TARGET_SITES.forEach((site) => {
-    if (tab.url!.startsWith(site)) matched = true
-  })
+
+  if (tab.url!.startsWith("https://eksisozluk")) matched = true
+
   if (matched && changeInfo.status === "complete") {
     initExtension(tab.id!)
   }
@@ -45,11 +46,14 @@ chrome.runtime.onMessage.addListener(function (
   sender,
   sendResponse
 ) {
-  if (request.message === "GET_CONTENT") {
-    const newSite = !!(sender.tab!.url && sender.tab!.url.indexOf("2023") > -1)
+  if (request.message === "GET_CONTENT" && sender.tab!.url) {
+    const newSite = `https://${new URL(sender.tab!.url).hostname}`
+
+    console.log("New Site -> " + newSite)
 
     getHtml(request.data, newSite)
       .then((res) => {
+        console.log(res)
         chrome.tabs.sendMessage(sender.tab!.id!, {
           message: "GET_CONTENT_RESULT",
           data: res,

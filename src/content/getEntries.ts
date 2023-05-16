@@ -30,7 +30,7 @@ const getEntry = (domEntry: Element): IEntry => {
     })
   }
 
-  //let createdDate: Date | undefined, editedDate: Date | undefined
+  // let createdDate: Date | undefined, editedDate: Date | undefined
   let entryDateStr = ""
   try {
     entryDateStr = domEntry.querySelector(".entry-date")?.innerHTML ?? ""
@@ -56,8 +56,8 @@ const getEntry = (domEntry: Element): IEntry => {
     links,
     entryDateStr,
     content,
-    //createdDate,
-    //editedDate,
+    // createdDate,
+    // editedDate,
     // isFavorite: domEntry.getAttribute("data-isfavorite") === "true",
     // favoriteCount: parseInt(
     //   domEntry.getAttribute("data-favorite-count") ?? "0"

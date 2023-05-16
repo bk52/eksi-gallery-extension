@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Eksi Gallery",
   "description": "This extension provides view images in eksisozluk as a gallery.",
-  "version": "1.1",
+  "version": "1.2",
   "icons": {
     "16": "images/eksi16off.png",
     "48": "images/eksi48off.png",
@@ -25,16 +25,21 @@
     {
       "js": ["script/content.js"],
       "css": ["styles/css/content.css", "styles/css/font-awesome.css"],
-      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
+      "matches": [
+        "https://eksisozluk.com/*",
+        "https://eksisozluk42.com/*",
+        "https://eksisozluk1923.com/*",
+        "https://eksisozluk2023.com/*"
+      ]
     }
   ],
   "content_security_policy": {
     "extension_page": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
   },
   "host_permissions": [
-    "https://eksisozluk.com/",
     "https://eksisozluk.com/*",
-    "https://eksisozluk2023.com/",
+    "https://eksisozluk42.com/*",
+    "https://eksisozluk1923.com/*",
     "https://eksisozluk2023.com/*",
     "https://soz.lk/",
     "https://soz.lk/*",
@@ -46,11 +51,21 @@
   "web_accessible_resources": [
     {
       "resources": ["styles/css/content.css"],
-      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
+      "matches": [
+        "https://eksisozluk.com/*",
+        "https://eksisozluk42.com/*",
+        "https://eksisozluk1923.com/*",
+        "https://eksisozluk2023.com/*"
+      ]
     },
     {
       "resources": ["styles/css/font-awesome.css"],
-      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
+      "matches": [
+        "https://eksisozluk.com/*",
+        "https://eksisozluk42.com/*",
+        "https://eksisozluk1923.com/*",
+        "https://eksisozluk2023.com/*"
+      ]
     },
     {
       "resources": [
@@ -58,7 +73,12 @@
         "styles/fonts/fontawesome-webfont.woff2",
         "styles/fonts/fontawesome-webfont.ttf"
       ],
-      "matches": ["https://eksisozluk.com/*", "https://eksisozluk2023.com/*"]
+      "matches": [
+        "https://eksisozluk.com/*",
+        "https://eksisozluk42.com/*",
+        "https://eksisozluk1923.com/*",
+        "https://eksisozluk2023.com/*"
+      ]
     }
   ],
   "permissions": ["tabs", "activeTab", "storage"],

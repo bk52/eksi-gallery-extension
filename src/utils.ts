@@ -17,5 +17,5 @@ export const getExtensionStatus = async (
 
 export const getExtensionMode = async (): Promise<ViewMode> => {
   const mode = await getSetting("mode")
-  return mode["mode"] === "INLINE" ? "INLINE" : "GALLERY"
+  return mode.mode === "INLINE" ? "INLINE" : "GALLERY"
 }
