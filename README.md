@@ -17,6 +17,13 @@ You can view pictures inside the page or in gallery mode.
 </tr>
 </table>
 
+## Supported Sozluk Sites
+
+- https://eksisozluk.com/
+- https://eksisozluk42.com/
+- https://eksisozluk1923.com/
+- https://eksisozluk2023.com/
+
 ## Supported Upload Sites
 
 - https://soz.lk/
@@ -58,3 +65,11 @@ npm run build
 After successful build, **dist** folder will be created from the project directory.
 
 - Install the **dist** folder by following [these steps](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) in the Chrome browser.
+
+## ⚠ Known Issues
+
+- If Adblock is active in your browser, the images of eksiup.com cannot be displayed and it will cause an error in the gallery view.
+
+✔ Solutions
+- Close adblock
+ 
