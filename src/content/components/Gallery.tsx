@@ -41,7 +41,7 @@ const Gallery: React.FC<IGallery> = ({
     if (entry && entry.links) {
       const links: string[] = []
       Object.entries(entry.links).forEach(([k, v]) => {
-        v.target && v.target != "" ? links.push(v.target) : links.push(k)
+        v.target && v.target !== "" ? links.push(v.target) : links.push(k)
       })
       setEntryImages(links)
     } else {
@@ -84,7 +84,7 @@ const Gallery: React.FC<IGallery> = ({
         {entry && <EntryInfo entry={entry} />}
         {/* Image */}
         {entryImages ? (
-          <EntryImage
+          <EntryImageContainer
             imageUrl={entryImages[activeImage]}
             onNextClick={() => changeImage(1)}
             onPrevClick={() => changeImage(-1)}
@@ -143,19 +143,11 @@ const EntryInfo: React.FC<{ entry: IEntry }> = ({ entry }) => {
   )
 }
 
-const EntryImage: React.FC<{
+const EntryImageContainer: React.FC<{
   imageUrl: string
   onNextClick?: () => void
   onPrevClick?: () => void
 }> = ({ imageUrl, onNextClick, onPrevClick }) => {
-  const [status, setStatus] = useState<"loading" | "loaded" | "error">(
-    "loading"
-  )
-
-  useEffect(() => {
-    setStatus("loading")
-  }, [imageUrl])
-
   return (
     <div className="eg-gallery-image-container">
       {/* Prev Image Button */}
@@ -165,44 +157,7 @@ const EntryImage: React.FC<{
       >
         <i className="fa fa-angle-left"></i>
       </div>
-      {status === "loading" && (
-        <div className="eg-gallery-active-image-loading">
-          <i className="fa fa-spinner fa-2x"></i>
-          <div>Yükleniyor</div>
-        </div>
-      )}
-      {status === "error" && (
-        <div className="eg-gallery-active-image-loading">
-          <i className="fa fa-frown-o fa-2x"></i>
-          <div>Bağlantı bulunamadı ya da desteklenmiyor</div>
-          <a
-            href={imageUrl}
-            target={"_blank"}
-            rel="noopener noreferrer"
-            style={{
-              color: "#81c14b",
-              textDecoration: "none",
-            }}
-          >
-            Bir de sen dene
-          </a>
-        </div>
-      )}
-      <a
-        href={imageUrl}
-        target={"_blank"}
-        rel="noopener noreferrer"
-        style={{
-          display: status === "loaded" ? "block" : "none",
-        }}
-      >
-        <img
-          className="eg-gallery-active-image"
-          src={imageUrl}
-          onLoad={() => setStatus("loaded")}
-          onError={() => setStatus("error")}
-        />
-      </a>
+      <EntryImage imageUrl={imageUrl} />
       {/* Next Image Button */}
       <div
         className="eg-gallery-image-buttons"
@@ -212,6 +167,65 @@ const EntryImage: React.FC<{
       </div>
     </div>
   )
+}
+
+const EntryImage: React.FC<{
+  imageUrl: string
+}> = ({ imageUrl }) => {
+  const [status, setStatus] = useState<"loading" | "loaded" | "error">(
+    "loading"
+  )
+
+  useEffect(() => {
+    setStatus("loading")
+  }, [imageUrl])
+
+  try {
+    return (
+      <>
+        {status === "loading" && (
+          <div className="eg-gallery-active-image-loading">
+            <i className="fa fa-spinner fa-2x"></i>
+            <div>Yükleniyor</div>
+          </div>
+        )}
+        <a
+          href={imageUrl}
+          target={"_blank"}
+          rel="noopener noreferrer"
+          style={{
+            display: status === "loaded" ? "block" : "none",
+          }}
+        >
+          <img
+            className="eg-gallery-active-image"
+            src={imageUrl}
+            onLoad={() => {
+              setStatus("loaded")
+            }}
+          />
+        </a>
+      </>
+    )
+  } catch (e) {
+    return (
+      <div className="eg-gallery-active-image-loading">
+        <i className="fa fa-frown-o fa-2x"></i>
+        <div>Bağlantı bulunamadı ya da desteklenmiyor</div>
+        <a
+          href={imageUrl}
+          target={"_blank"}
+          rel="noopener noreferrer"
+          style={{
+            color: "#81c14b",
+            textDecoration: "none",
+          }}
+        >
+          Bir de sen dene
+        </a>
+      </div>
+    )
+  }
 }
 
 const EksiGallery = (props: IGallery) => {

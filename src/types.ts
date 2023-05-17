@@ -47,5 +47,5 @@ export interface IEntry {
   links?: ILink
 }
 
-export const ON_ICON = "images/eksi48.png"
-export const OFF_ICON = "images/eksi48off.png"
+export const ON_ICON = "/images/eksi48.png"
+export const OFF_ICON = "/images/eksi48off.png"

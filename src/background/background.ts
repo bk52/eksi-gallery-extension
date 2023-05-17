@@ -49,11 +49,8 @@ chrome.runtime.onMessage.addListener(function (
   if (request.message === "GET_CONTENT" && sender.tab!.url) {
     const newSite = `https://${new URL(sender.tab!.url).hostname}`
 
-    console.log("New Site -> " + newSite)
-
     getHtml(request.data, newSite)
       .then((res) => {
-        console.log(res)
         chrome.tabs.sendMessage(sender.tab!.id!, {
           message: "GET_CONTENT_RESULT",
           data: res,

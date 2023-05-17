@@ -1,4 +1,4 @@
-import { IEntry, ILink } from "../types"
+import { IEntry, ILink, UploadSites } from "../types"
 
 const getEntries = (): IEntry[] => {
   const entries: IEntry[] = []
@@ -19,6 +19,8 @@ const getEntries = (): IEntry[] => {
   return entries
 }
 
+const supportedWebsites = Object.values(UploadSites)
+
 const getEntry = (domEntry: Element): IEntry => {
   const content = domEntry.getElementsByClassName("content")[0].innerHTML
   const linksInEntry = domEntry.querySelectorAll(".content > a")
@@ -26,7 +28,11 @@ const getEntry = (domEntry: Element): IEntry => {
   if (linksInEntry.length > 0) {
     links = {}
     Array.from(linksInEntry).forEach((link) => {
-      if (link instanceof HTMLAnchorElement) links![link.href] = {}
+      // if (link instanceof HTMLAnchorElement) links![link.href] = {}
+      if (link instanceof HTMLAnchorElement)
+        supportedWebsites.forEach((website) => {
+          if (link.href.includes(website)) links![link.href] = {}
+        })
     })
   }
 
